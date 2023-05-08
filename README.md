@@ -2,7 +2,7 @@
 This repository contains the docker compose file for the application.
 
 ## Usage
-- Download the `docker-compose.yml` file.
+- Retrieve the `docker-compose.yml` file.
 - Login to the ghcr.io docker registry:
   ```sh
   docker login ghcr.io
@@ -11,14 +11,21 @@ This repository contains the docker compose file for the application.
   ```sh
   docker compose up
   ```
-- The application will be available at [localhost](http:localhost:80).
+- The application will be available at [localhost:80](http:localhost:80).
 
-## Useful files
-### To understand the application, it may be useful to check the following repositories to see the backend code:
-- [Model-training](https://github.com/remla23-team14/model-training)
-  - [preprocessing.py](https://github.com/remla23-team14/model-training/blob/main/src/data_preprocessing.py): Preprocesses the input, and transforms it into a feature vector. 
-  - [train.py](https://github.com/remla23-team14/model-training/blob/main/src/train.py): Trains the model based on the feature vector obtained from preprocessing.py.
-- [Model-service](https://github.com/remla23-team14/model-service)
-  - [app.py](https://github.com/remla23-team14/model-service/blob/main/app.py): Serves the model in a flask API.
-  - [predictor.py](https://github.com/remla23-team14/model-service/blob/main/ml/api/predictor.py): Returns the result of a sentiment analysis.
-- [App](https://github.com/remla23-team14/app)
+## Organization structure
+To understand the application, it may be useful to check the following repositories their README files:
+- [model-training](https://github.com/remla23-team14/model-training): contains the code for training the model.
+- [model-service](https://github.com/remla23-team14/model-service): serves the sentiment model.
+- [lib](https://github.com/remla23-team14/lib): simple version library for the app.
+- [app](https://github.com/remla23-team14/app): contains the frontend and backend code for the application, which queries the model-service backend for a sentiment analysis.
+
+## Screenshots
+### Landing page
+![landing page](images/landing.png)
+
+### Restaurants Overview
+![restaurants overview](images/restaurants.png)
+
+### Restaurant Reviews
+![Restaurant reviews](images/reviews.png)
