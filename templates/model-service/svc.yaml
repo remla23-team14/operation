@@ -1,0 +1,13 @@
+{{ $modelServiceName := print .Release.Name "-model-service" }}
+{{- with .Values.modelService }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $modelServiceName }}-svc
+spec:
+  selector:
+    app: {{ $modelServiceName }}
+  ports:
+    - port: {{ .port }}
+      targetPort: {{ .port }}
+{{- end}}

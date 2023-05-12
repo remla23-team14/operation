@@ -1,0 +1,13 @@
+{{ $appName := .Release.Name }}
+{{- with .Values.app }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $appName }}-svc
+spec:
+  selector:
+    app: {{ $appName }}
+  ports:
+    - port: {{ .port }}
+      targetPort: {{ .port }}
+{{- end }}

@@ -1,0 +1,24 @@
+{{ $modelServiceName := print .Release.Name "-model-service" }}
+{{- with .Values.modelService }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $modelServiceName }}-deployment
+  labels:
+    app: {{ $modelServiceName }}
+spec:
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      app: {{ $modelServiceName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $modelServiceName }}
+    spec:
+      containers:
+        - name: {{ $modelServiceName }}
+          image: "ghcr.io/remla23-team14/model-service:{{ .version }}"
+          ports:
+            - containerPort: {{ .port }}
+{{- end }}

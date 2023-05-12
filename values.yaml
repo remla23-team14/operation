@@ -1,0 +1,8 @@
+modelService:
+  version: latest
+  port: 8080
+  replicas: 1
+app:
+  version: latest
+  port: 8080
+  replicas: 1

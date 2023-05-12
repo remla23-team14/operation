@@ -1,17 +1,39 @@
-# A1: Operation
-This repository contains the docker compose file for the application.
+# Operation
+This repository contains the deployment files for the application.
+The application is a simple web application that allows users to view restaurants and add reviews.
 
-## Usage
-- Retrieve the `docker-compose.yml` file.
-- Login to the ghcr.io docker registry:
+## Prerequisites
+- [Docker](https://www.docker.com)
+- Docker compose / [Helm](https://helm.sh)
+- A valid session to the ghcr.io docker registry:
   ```sh
   docker login ghcr.io
   ```
-- Run the following command in the same folder as the docker compose file:
+
+## Usage (Helm)
+- Deploy the application's chart using the following command in the repository root:
+  ```sh
+  helm install app .
+  ```
+- Connect to the app-ingress on port 80. If you are using [minikube](https://github.com/kubernetes/minikube), you can use the following command:
+  ```sh
+  minikube tunnel
+  ```
+- To stop the application, run the following command:
+  ```sh
+  helm uninstall app
+  ```
+
+## Usage (docker compose)
+- Run the following command in the repository root:
   ```sh
   docker compose up
   ```
 - The application will be available at [localhost:80](http:localhost:80).
+- To stop the application, run the following command:
+  ```sh
+  docker compose down
+  ```
 
 ## Organization structure
 To understand the application, it may be useful to check the following repositories their README files:

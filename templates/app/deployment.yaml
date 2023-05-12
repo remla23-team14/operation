@@ -1,0 +1,30 @@
+{{ $appName := .Release.Name }}
+{{- with .Values.app }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $appName }}-deployment
+  labels:
+    app: {{ $appName }}
+spec:
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      app: {{ $appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $appName }}
+    spec:
+      containers:
+        - name: {{ $appName }}
+          image: "ghcr.io/remla23-team14/app:{{ .version }}"
+          ports:
+            - containerPort: {{ .port }}
+          env:
+            - name: MODEL_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ $appName }}-cm
+                  key: model-service.host
+{{- end }}

@@ -1,0 +1,8 @@
+{{ $appName := .Release.Name }}
+{{ $modelServiceName := print $appName "-model-service" }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $appName }}-cm
+data:
+  model-service.host: "http://{{ $modelServiceName }}-svc:{{ .Values.modelService.port }}"
