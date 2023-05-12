@@ -11,9 +11,13 @@ The application is a simple web application that allows users to view restaurant
   ```
 
 ## Usage (Helm)
-- Deploy the application's chart using the following command in the repository root:
+- Add the repository to helm:
   ```sh
-  helm install app charts/app
+  helm repo add remla23-team14 https://remla23-team14.github.io/operation
+  ```
+- Install the application:
+  ```sh
+  helm install app remla23-team14/app
   ```
 - Connect to the app-ingress on port 80. If you are using [minikube](https://github.com/kubernetes/minikube), you can use the following command:
   ```sh
