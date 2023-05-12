@@ -13,7 +13,7 @@ The application is a simple web application that allows users to view restaurant
 ## Usage (Helm)
 - Deploy the application's chart using the following command in the repository root:
   ```sh
-  helm install app .
+  helm install app charts/app
   ```
 - Connect to the app-ingress on port 80. If you are using [minikube](https://github.com/kubernetes/minikube), you can use the following command:
   ```sh
