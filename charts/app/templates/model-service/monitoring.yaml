@@ -17,6 +17,6 @@ spec:
   endpoints:
   - interval: 1s
     path: '/metrics'
-    port: 'metrics'
+    port: 'model-service'
 {{- end }}
 {{- end }}

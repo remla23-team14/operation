@@ -13,9 +13,4 @@ spec:
     - name: 'model-service'
       port: {{ .port }}
       targetPort: {{ .port }}
-    {{- if .metrics.enabled }}
-    - name: 'metrics'
-      port: {{ .metrics.port }}
-      targetPort: {{ .metrics.port }}
-    {{- end }}
 {{- end }}
