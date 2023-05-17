@@ -1,6 +1,8 @@
 modelService:
   version: latest
   port: 8080
+  metrics:
+    enabled: true
   replicas: 1
 
 app:

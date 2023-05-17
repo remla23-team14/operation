@@ -1,0 +1,16 @@
+{{ $modelServiceName := .Release.Name }}
+{{- with .Values.modelService }}
+{{- if .metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $modelServiceName }}-monitor
+spec:
+  selector:
+    matchLabels:
+      app: {{ $modelServiceName }}-svc
+  endpoints:
+  - interval: 1s
+    path: '/metrics'
+{{- end }}
+{{- end }}
