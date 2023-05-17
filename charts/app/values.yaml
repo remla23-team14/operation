@@ -3,6 +3,7 @@ modelService:
   port: 8080
   metrics:
     enabled: true
+    port: 9091
   replicas: 1
 
 app:
@@ -22,12 +23,3 @@ grafana:
   enabled: true
   host: 'grafana.local'
   port: 3000
-
-kube-prometheus-stack:
-  prometheus:
-    additionalServiceMonitors:
-      - name: app
-        selector: {}
-        endpoints:
-          - port: metrics
-            interval: 1s

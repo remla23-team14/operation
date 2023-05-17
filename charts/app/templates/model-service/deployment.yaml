@@ -20,5 +20,13 @@ spec:
         - name: {{ $modelServiceName }}
           image: "ghcr.io/remla23-team14/model-service:{{ .version }}"
           ports:
-            - containerPort: {{ .port }}
+            - name: 'model-service'
+              containerPort: {{ .port }}
+            - name: 'metrics'
+              containerPort: {{ .metrics.port }}
+          env:
+            - name: ENABLE_METRICS
+              value: '{{ .metrics.enabled }}'
+            - name: METRICS_PORT
+              value: '{{ .metrics.port }}'
 {{- end }}

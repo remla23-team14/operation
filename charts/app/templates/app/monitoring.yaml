@@ -5,7 +5,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ $appName }}-monitor
+  labels:
+    app: {{ $appName }}-svc
+    release: {{ $appName}}
 spec:
+  jobLabel: {{ $appName }}-svc
   selector:
     matchLabels:
       app: {{ $appName }}-svc
