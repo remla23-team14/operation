@@ -15,6 +15,10 @@ The application is a simple web application that allows users to view restaurant
   ```sh
   helm repo add remla23-team14 https://remla23-team14.github.io/operation
   ```
+- Run helm update:
+  ```sh
+  helm repo update
+  ```
 - Install the application:
   ```sh
   helm install app remla23-team14/app
