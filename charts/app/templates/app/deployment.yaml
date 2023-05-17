@@ -20,11 +20,18 @@ spec:
         - name: {{ $appName }}
           image: "ghcr.io/remla23-team14/app:{{ .version }}"
           ports:
-            - containerPort: {{ .port }}
+            - name: 'app'
+              containerPort: {{ .port }}
+            - name: 'metrics'
+              containerPort: {{ .metrics.port }}
           env:
             - name: MODEL_SERVICE_URL
               valueFrom:
                 configMapKeyRef:
                   name: {{ $appName }}-cm
                   key: model-service.host
+            - name: ENABLE_METRICS
+              value: '{{ .metrics.enabled }}'
+            - name: METRICS_PORT
+              value: '{{ .metrics.port }}'
 {{- end }}

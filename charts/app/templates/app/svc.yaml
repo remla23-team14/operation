@@ -8,6 +8,12 @@ spec:
   selector:
     app: {{ $appName }}
   ports:
-    - port: {{ .port }}
+    - name: 'app'
+      port: {{ .port }}
       targetPort: {{ .port }}
+    {{- if .metrics.enabled }}
+    - name: 'metrics'
+      port: {{ .metrics.port }}
+      targetPort: {{ .metrics.port }}
+    {{- end }}
 {{- end }}

@@ -1,0 +1,17 @@
+{{ $appName := .Release.Name }}
+{{- with .Values.app }}
+{{- if .metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $appName }}-monitor
+spec:
+  selector:
+    matchLabels:
+      app: {{ $appName }}-svc
+  endpoints:
+  - interval: 1s
+    path: '/metrics'
+    port: 'metrics'
+{{- end }}
+{{- end }}

@@ -5,9 +5,19 @@ modelService:
 app:
   version: latest
   port: 8080
+  metrics:
+    enabled: true
+    port: 9091
   replicas: 1
 prometheus:
   enabled: true
   host: 'prometheus.local'
-  version: latest
   port: 9090
+kube-prometheus-stack:
+  prometheus:
+    additionalServiceMonitors:
+      - name: app
+        selector: {}
+        endpoints:
+          - port: metrics
+            interval: 1s
