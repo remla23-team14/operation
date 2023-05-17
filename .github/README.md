@@ -19,9 +19,13 @@ The application is a simple web application that allows users to view restaurant
   ```sh
   helm install app remla23-team14/app
   ```
-- Connect to the app-ingress on port 80. If you are using [minikube](https://github.com/kubernetes/minikube), you can use the following command:
+- To access the application, connect to the ingress on port 80. If you are using [minikube](https://github.com/kubernetes/minikube), you can use the following command:
   ```sh
   minikube tunnel
+  ```
+  To access Prometheus, by default, the domain `prometheus.local` is used. Make sure you have this line in your `/etc/hosts` file:
+  ```sh
+  127.0.0.1 prometheus.local
   ```
 - To stop the application, run the following command:
   ```sh

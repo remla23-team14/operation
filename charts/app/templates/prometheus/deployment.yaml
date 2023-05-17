@@ -1,0 +1,26 @@
+{{ $promName := print .Release.Name "-prom" }}
+{{- with .Values.prometheus }}
+{{- if .enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $promName }}-deployment
+  labels:
+    app: {{ $promName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ $promName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $promName }}
+    spec:
+      containers:
+        - name: {{ $promName }}
+          image: prom/prometheus
+          ports:
+            - containerPort: {{ .port }}
+{{- end }}
+{{- end }}

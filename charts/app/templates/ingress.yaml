@@ -1,0 +1,34 @@
+{{ $appName := .Release.Name }}
+{{ $promName := print .Release.Name "-prom" }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+spec:
+  rules:
+  {{- with .Values.prometheus }}
+  {{- if .enabled }}
+  - host: '{{ .host }}'
+    http:
+      paths:
+      - path: '/'
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $promName }}-svc
+            port:
+              number: {{ .port }}
+  {{- end }}
+  {{- end }}
+
+  {{- with .Values.app }}
+  - http:
+      paths:
+      - path: '/'
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $appName }}-svc
+            port:
+              number: {{ .port }}
+  {{- end }}

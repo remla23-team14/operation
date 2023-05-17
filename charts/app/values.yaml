@@ -6,3 +6,8 @@ app:
   version: latest
   port: 8080
   replicas: 1
+prometheus:
+  enabled: true
+  host: 'prometheus.local'
+  version: latest
+  port: 9090

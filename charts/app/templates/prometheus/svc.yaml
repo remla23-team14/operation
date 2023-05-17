@@ -1,0 +1,17 @@
+{{ $promName := print .Release.Name "-prom" }}
+{{- with .Values.prometheus }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $promName }}-svc
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '{{ .port }}'
+spec:
+  selector:
+    app: {{ $promName }}
+  type: NodePort
+  ports:
+    - port: {{ .port }}
+      targetPort: {{ .port }}
+{{- end }}

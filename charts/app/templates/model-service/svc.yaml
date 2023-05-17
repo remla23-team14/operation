@@ -10,4 +10,4 @@ spec:
   ports:
     - port: {{ .port }}
       targetPort: {{ .port }}
-{{- end}}
+{{- end }}
