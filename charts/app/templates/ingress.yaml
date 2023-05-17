@@ -20,6 +20,21 @@ spec:
   {{- end }}
   {{- end }}
 
+  {{- with .Values.grafana }}
+    {{- if .enabled }}
+  - host: '{{ .host }}'
+    http:
+      paths:
+      - path: '/'
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $appName }}-grafana
+            port:
+              number: {{ .port }}
+    {{- end }}
+    {{- end }}
+
   {{- with .Values.app }}
   - http:
       paths:

@@ -2,6 +2,7 @@ modelService:
   version: latest
   port: 8080
   replicas: 1
+
 app:
   version: latest
   port: 8080
@@ -9,10 +10,17 @@ app:
     enabled: true
     port: 9091
   replicas: 1
+
 prometheus:
   enabled: true
   host: 'prometheus.local'
   port: 9090
+
+grafana:
+  enabled: true
+  host: 'grafana.local'
+  port: 3000
+
 kube-prometheus-stack:
   prometheus:
     additionalServiceMonitors:

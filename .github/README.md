@@ -11,41 +11,49 @@ The application is a simple web application that allows users to view restaurant
   ```
 
 ## Usage (Helm)
-- Add the repository to helm:
-  ```sh
-  helm repo add remla23-team14 https://remla23-team14.github.io/operation
-  ```
-- Run helm update:
-  ```sh
-  helm repo update
-  ```
-- Install the application:
-  ```sh
-  helm install app remla23-team14/app
-  ```
-- To access the application, connect to the ingress on port 80. If you are using [minikube](https://github.com/kubernetes/minikube), you can use the following command:
-  ```sh
-  minikube tunnel
-  ```
-  To access Prometheus, by default, the domain `prometheus.local` is used. Make sure you have this line in your `/etc/hosts` file:
-  ```sh
-  127.0.0.1 prometheus.local
-  ```
-- To stop the application, run the following command:
-  ```sh
-  helm uninstall app
-  ```
+### Installation
+1. Add the repository to helm:
+   ```sh
+   helm repo add remla23-team14 https://remla23-team14.github.io/operation
+   ```
+2. Run helm update:
+   ```sh
+   helm repo update
+   ```
+3. Install the application:
+   ```sh
+   helm install app remla23-team14/app
+   ```
+### Access the application
+To access the application, connect to the ingress on port 80.
+If you are using [minikube](https://github.com/kubernetes/minikube),
+you can use the following command:
+```sh
+minikube tunnel
+ ```
+This will expose the ingress on [http://localhost:80](http:localhost:80).
+
+### Access Prometheus & Grafana
+To access Prometheus and Grafana, by default, the domains `prometheus.local` and `grafana.local` are used.
+Make sure you have the following lines in your `/etc/hosts` file, or the equivalent for your OS:
+```sh
+127.0.0.1 prometheus.local
+127.0.0.1 grafana.local
+```
+You can then access Prometheus on [http://prometheus.local](http://prometheus.local) and Grafana on [http://grafana.local](http://grafana.local).
+Use the following credentials to login to Grafana:
+- Username: `admin`
+- Password: `prom-operator`
 
 ## Usage (docker compose)
-- Run the following command in the repository root:
-  ```sh
-  docker compose up
-  ```
-- The application will be available at [localhost:80](http:localhost:80).
-- To stop the application, run the following command:
-  ```sh
-  docker compose down
-  ```
+### Installation
+Run the following command in the repository root:
+```sh
+docker compose up
+```
+
+### Access
+The application will be available at [http://localhost:80](http:localhost:80).
 
 ## Organization structure
 To understand the application, it may be useful to check the following repositories their README files:
