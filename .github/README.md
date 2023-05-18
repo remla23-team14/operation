@@ -62,6 +62,13 @@ To understand the application, it may be useful to check the following repositor
 - [lib](https://github.com/remla23-team14/lib): simple version library for the app.
 - [app](https://github.com/remla23-team14/app): contains the frontend and backend code for the application, which queries the model-service backend for a sentiment analysis.
 
+## Operaton Setup
+Grafana dashboards can be added as json in the `charts/app/dashboards` folder.
+They will automatically be loaded into Grafana.
+
+To deploy a new version of the Helm chart,
+simply bump the version in Chart.yaml and the new version will be deployed.
+
 ## Screenshots
 ### Landing page
 ![landing page](images/landing.png)
