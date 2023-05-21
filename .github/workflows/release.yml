@@ -28,6 +28,9 @@ jobs:
           git push origin HEAD:main -f "$TAG"
       - name: Install Helm
         uses: azure/setup-helm@v3
+        with:
+          version: 'latest'
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.5.0
         env:
