@@ -22,4 +22,26 @@ spec:
           ports:
             - name: 'model-service'
               containerPort: {{ .port }}
+          {{- with .localModel }}
+          {{- if .enabled }}
+          volumeMounts:
+            - mountPath: '/root/model-training/c1_BoW_Sentiment_Model.pkl'
+              name: {{ $modelServiceName }}-vectorizer-volume
+            - mountPath: '/root/model-training/c2_Classifier_Sentiment_Model'
+              name: {{ $modelServiceName }}-model-volume
+          {{- end }}
+          {{- end }}
+      {{- with .localModel }}
+      {{- if .enabled }}
+      volumes:
+        - name: {{ $modelServiceName }}-vectorizer-volume
+          hostPath:
+            path: '{{ .vectorizerPath }}'
+            type: 'File'
+        - name: {{ $modelServiceName }}-model-volume
+          hostPath:
+            path: '{{ .modelPath }}'
+            type: 'File'
+      {{- end }}
+      {{- end }}
 {{- end }}

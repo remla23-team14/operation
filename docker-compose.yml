@@ -3,6 +3,9 @@ services:
     image: ghcr.io/remla23-team14/model-service
     expose:
       - "8080"
+#    volumes:
+#      - ./model-training/c1_BoW_Sentiment_Model.pkl:/root/model-training/c1_BoW_Sentiment_Model.pkl
+#      - ./model-training/c2_Classifier_Sentiment_Model:/root/model-training/c2_Classifier_Sentiment_Model
   app:
     image: ghcr.io/remla23-team14/app
     ports:

@@ -1,25 +1,61 @@
 modelService:
+  # The image tag of the model service.
   version: latest
+
+  # The port for the model service.
   port: 8080
+
+  # Whether to enable the metrics endpoint.
   metrics:
     enabled: true
     port: 9091
+
+  # The number of replicas for the model service.
   replicas: 1
 
+  localModel:
+    # Whether to enable a volume mapping for the model files.
+    enabled: false
+
+    # The absolute path for the vectorizer (.pkl) file.
+    # Note: if you are using minikube, this path is in the minikube container!
+    vectorizerPath: ''
+
+    # The absolute path for the model file.
+    # Note: if you are using minikube, this path is in the minikube container!
+    modelPath: ''
+
 app:
+  # The image tag of the app.
   version: latest
+
+  # The port for the app.
   port: 8080
+
+  # Whether to enable the metrics endpoint.
   metrics:
     enabled: true
     port: 9091
+
+  # The number of replicas for the app.
   replicas: 1
 
 prometheus:
+  # Whether to enable prometheus.
   enabled: true
+
+  # The hostname for prometheus to filter by in the ingress controller.
   host: 'prometheus.local'
+
+  # The port for prometheus.
   port: 9090
 
 grafana:
+  # Whether to enable grafana.
   enabled: true
+
+  # The hostname for grafana to filter by in the ingress controller.
   host: 'grafana.local'
+
+  # The port for grafana.
   port: 3000

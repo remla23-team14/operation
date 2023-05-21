@@ -52,6 +52,18 @@ Run the following command in the repository root:
 docker compose up
 ```
 
+If you want to specify a different model for the model-service,
+you can uncomment the following lines in the `docker-compose.yml` file:
+```yml
+services:
+  model-service:
+    ...
+#    volumes:
+#      - ./model-training/c1_BoW_Sentiment_Model.pkl:/root/model-training/c1_BoW_Sentiment_Model.pkl
+#      - ./model-training/c2_Classifier_Sentiment_Model:/root/model-training/c2_Classifier_Sentiment_Model
+```
+Make sure you have the model files in the `model-service` folder.
+
 ### Access
 The application will be available at [http://localhost:80](http:localhost:80).
 
