@@ -62,7 +62,7 @@ services:
 #      - ./model-training/c1_BoW_Sentiment_Model.pkl:/root/model-training/c1_BoW_Sentiment_Model.pkl
 #      - ./model-training/c2_Classifier_Sentiment_Model:/root/model-training/c2_Classifier_Sentiment_Model
 ```
-Make sure you have the model files in the `model-service` folder.
+Make sure you have the model files in the `model-training` folder (or change it).
 
 ### Access
 The application will be available at [http://localhost:80](http:localhost:80).
