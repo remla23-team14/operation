@@ -1,10 +1,7 @@
 name: Release Charts
 on:
   push:
-    branches:
-      - main
-    paths:
-      - charts/**
+    tags: ["v[0-9]+.[0-9]+.[0-9]+"]
 jobs:
   release:
     permissions:
@@ -19,6 +16,16 @@ jobs:
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
+      - name: Update Chart.yaml
+        run: |
+          TAG="${{ github.ref_name }}"
+          VERSION="${TAG:1}"
+          for f in $(find . -name 'Chart.yaml'); do echo "$f"; done
+          find . -name 'Chart.yaml' -exec yq -i ".version = \"${VERSION}\"" {} \;
+          git commit -am "Update Chart.yaml version to $VERSION"
+          git push origin HEAD:main
+          git tag -f "$TAG"
+          git push origin HEAD:main -f "$TAG"
       - name: Install Helm
         uses: azure/setup-helm@v3
       - name: Run chart-releaser
