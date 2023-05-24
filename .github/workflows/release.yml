@@ -20,12 +20,9 @@ jobs:
         run: |
           TAG="${{ github.ref_name }}"
           VERSION="${TAG:1}"
+          git checkout main
           for f in $(find . -name 'Chart.yaml'); do echo "$f"; done
           find . -name 'Chart.yaml' -exec yq -i ".version = \"${VERSION}\"" {} \;
-          git commit -am "Update Chart.yaml version to $VERSION"
-          git push origin HEAD:main
-          git tag -f "$TAG"
-          git push origin HEAD:main -f "$TAG"
       - name: Install Helm
         uses: azure/setup-helm@v3
         with:
@@ -35,3 +32,13 @@ jobs:
         uses: helm/chart-releaser-action@v1.5.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          CR_SKIP_EXISTING: true
+      - name: Commit Chart.yaml
+        run: |
+          TAG="${{ github.ref_name }}"
+          VERSION="${TAG:1}"
+          git checkout main
+          git commit -am "Update Chart.yaml version to $VERSION"
+          git push
+          git tag -f "$TAG"
+          git push origin -f "$TAG"
