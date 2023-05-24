@@ -59,3 +59,17 @@ grafana:
 
   # The port for grafana.
   port: 3000
+
+kube-prometheus-stack:
+  alertmanager:
+    config:
+      receivers:
+        - name: 'null'
+        - name: 'webhook'
+          webhook_configs:
+            - url: '' # change to your webhook url
+      route:
+        routes:
+          - receiver: 'null' # change to 'webhook' to enable webhook
+            matchers:
+              - severity = page

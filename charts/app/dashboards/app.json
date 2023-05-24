@@ -19,7 +19,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 28,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -290,14 +289,26 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "app_page_visits",
+          "expr": "app_page_visits{path=~\"/|/restaurants\"}",
           "interval": "",
-          "legendFormat": "{{restaurantName}} {{method}} {{path}} ",
+          "legendFormat": "{{method}}: {{path}}",
           "range": true,
-          "refId": "A"
+          "refId": "Unnamed paths"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "builder",
+          "expr": "app_page_visits{path!~\"/|/restaurants\"}",
+          "hide": false,
+          "legendFormat": "{{method}}: {{restaurantName}}",
+          "range": true,
+          "refId": "Named paths"
         }
       ],
-      "title": "Visits per Page",
+      "title": "App Page Visits total",
       "type": "timeseries"
     },
     {
@@ -364,7 +375,6 @@
         "y": 8
       },
       "id": 5,
-      "maxDataPoints": 5,
       "options": {
         "legend": {
           "calcs": [],
@@ -383,14 +393,39 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
-          "expr": "changes(app_page_visits[1m])",
-          "legendFormat": "{{restaurantName}} {{method}} {{path}} ",
+          "editorMode": "code",
+          "expr": "sum(increase(app_page_visits[1m]))",
+          "interval": "",
+          "legendFormat": "Total",
           "range": true,
-          "refId": "A"
+          "refId": "Total requests per min"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "builder",
+          "expr": "sum by (method, path, restaurantName) (increase(app_page_visits{path=~\"/|/restaurants\"}[1m]))",
+          "interval": "",
+          "legendFormat": "{{method}}: {{path}}",
+          "range": true,
+          "refId": "Unnamed paths requests per min"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "builder",
+          "expr": "sum by (method, path, restaurantName) (increase(app_page_visits{path!~\"/|/restaurants\"}[1m]))",
+          "hide": false,
+          "legendFormat": "{{method}}: {{restaurantName}}",
+          "range": true,
+          "refId": "Named paths requests per min"
         }
       ],
-      "title": "Requests per minute",
+      "title": "App Page Visits per min",
       "type": "timeseries"
     }
   ],
@@ -407,8 +442,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "App_info",
+  "title": "App",
   "uid": "b0876ec0-c5c8-4b50-ad49-a6b595e9e119",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
