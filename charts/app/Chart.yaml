@@ -1,7 +1,7 @@
 apiVersion: v2
 name: app
 type: application
-version: 0.0.8
+version: 0.0.9
 dependencies:
   - name: kube-prometheus-stack
     version: 45.28.1
