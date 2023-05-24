@@ -2,6 +2,18 @@ apiVersion: v1
 entries:
   app:
   - apiVersion: v2
+    created: "2023-05-24T18:35:41.325176433Z"
+    dependencies:
+    - name: kube-prometheus-stack
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 45.28.1
+    digest: 8120195a9b8c3d65ab7affef7daa34cf82903d809a4b674b7a3217ea85de2d0a
+    name: app
+    type: application
+    urls:
+    - https://github.com/remla23-team14/operation/releases/download/app-0.0.9/app-0.0.9.tgz
+    version: 0.0.9
+  - apiVersion: v2
     created: "2023-05-21T17:27:17.274786703Z"
     dependencies:
     - name: kube-prometheus-stack
@@ -77,4 +89,4 @@ entries:
     urls:
     - https://github.com/remla23-team14/operation/releases/download/app-0.0.1/app-0.0.1.tgz
     version: 0.0.1
-generated: "2023-05-21T17:27:17.274811203Z"
+generated: "2023-05-24T18:35:41.325207633Z"
