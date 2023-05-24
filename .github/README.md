@@ -24,6 +24,13 @@ The application is a simple web application that allows users to view restaurant
    ```sh
    helm install app remla23-team14/app
    ```
+   Please refer to the values.yaml file for the available configuration options.
+   You can set these by duplicating the [charts/app/values.yaml](../charts/app/values.yaml) file and changing the values.
+   Then, you can install the application with the following command:
+   ```sh
+   helm install app remla23-team14/app -f values.yaml
+   ```
+
 ### Access the application
 To access the application, connect to the ingress on port 80.
 If you are using [minikube](https://github.com/kubernetes/minikube),
