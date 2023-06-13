@@ -10,7 +10,7 @@ spec:
   selector:
     app: {{ $modelServiceName }}
   ports:
-    - name: 'model-service'
+    - name: 'tcp-model-service'
       port: {{ .port }}
       targetPort: {{ .port }}
 {{- end }}

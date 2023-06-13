@@ -1,0 +1,44 @@
+{{ $appName := .Release.Name }}
+{{ $port := .Values.app.port }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ $appName }}-app-entry-service
+spec:
+  gateways:
+  - {{ $appName }}-gateway
+  hosts:
+  - "*"
+  http:
+  {{/* Loop over all variants to redirect to the previous known variant. */}}
+  {{- range .Values.app.variants }}
+    - name: route-{{ .name }}
+      match:
+        - headers:
+            cookie:
+              regex: ^(.*;.)?(variant={{ .name }})(;.*)?$
+      route:
+        - destination:
+            host: {{ $appName }}-svc
+            subset: {{ .name }}
+            port:
+              number: {{ $port }}
+  {{- end }}
+    - name: route-random
+      match:
+        - uri:
+            prefix: "/"
+      route:
+      {{/*  Loop over all variant to distribute the weight. */}}
+      {{- range .Values.app.variants }}
+        - destination:
+            host: {{ $appName }}-svc
+            subset: {{ .name }}
+            port:
+              number: {{ $port }}
+          weight: {{ .weight }}
+          headers:
+            response:
+              set:
+                Set-Cookie: "variant={{ .name }}; Max-Age=31536000"
+      {{- end }}

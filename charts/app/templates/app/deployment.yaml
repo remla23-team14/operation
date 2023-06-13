@@ -1,29 +1,36 @@
 {{ $appName := .Release.Name }}
-{{- with .Values.app }}
+{{ $app := .Values.app }}
+{{- range .Values.app.variants }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $appName }}-deployment
+  name: {{ $appName }}-{{ .name }}-deployment
   labels:
     app: {{ $appName }}
+    version: {{ .name }}
 spec:
   replicas: {{ .replicas }}
   selector:
     matchLabels:
       app: {{ $appName }}
+      version: {{ .name }}
   template:
     metadata:
       labels:
         app: {{ $appName }}
+        version: {{ .name }}
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "{{ $app.metrics.port }}"
     spec:
       containers:
         - name: {{ $appName }}
           image: "ghcr.io/remla23-team14/app:{{ .version }}"
           ports:
             - name: 'app'
-              containerPort: {{ .port }}
+              containerPort: {{ $app.port }}
             - name: 'metrics'
-              containerPort: {{ .metrics.port }}
+              containerPort: {{ $app.metrics.port }}
           env:
             - name: MODEL_SERVICE_URL
               valueFrom:
@@ -31,7 +38,8 @@ spec:
                   name: {{ $appName }}-cm
                   key: model-service.host
             - name: ENABLE_METRICS
-              value: '{{ .metrics.enabled }}'
+              value: '{{ $app.metrics.enabled }}'
             - name: METRICS_PORT
-              value: '{{ .metrics.port }}'
+              value: '{{ $app.metrics.port }}'
+---
 {{- end }}

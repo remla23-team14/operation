@@ -26,9 +26,6 @@ modelService:
     modelPath: ''
 
 app:
-  # The image tag of the app.
-  version: latest
-
   # The port for the app.
   port: 8080
 
@@ -37,8 +34,26 @@ app:
     enabled: true
     port: 9091
 
-  # The number of replicas for the app.
-  replicas: 1
+  variants:
+    - name: app1
+      # The image tag of the app.
+      version: latest
+
+      # The number of replicas for the app.
+      replicas: 1
+
+      weight: 10
+
+
+    - name: app2
+      # The image tag of the app.
+      version: latest
+
+      # The number of replicas for the app.
+      replicas: 1
+
+      weight: 90
+
 
 prometheus:
   # Whether to enable prometheus.

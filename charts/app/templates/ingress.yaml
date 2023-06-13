@@ -1,48 +1,67 @@
 {{ $appName := .Release.Name }}
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
 metadata:
-  name: {{ $appName }}-ingress
+  name: {{ $appName}}-gateway
 spec:
-  rules:
-  {{- with .Values.prometheus }}
-  {{- if .enabled }}
-  - host: '{{ .host }}'
-    http:
-      paths:
-      - path: '/'
-        pathType: Prefix
-        backend:
-          service:
-            name: {{ $appName }}-kube-prometheus-stack-prometheus
-            port:
-              number: {{ .port }}
-  {{- end }}
-  {{- end }}
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
 
-  {{- with .Values.grafana }}
-    {{- if .enabled }}
-  - host: '{{ .host }}'
-    http:
-      paths:
-      - path: '/'
-        pathType: Prefix
-        backend:
-          service:
-            name: {{ $appName }}-grafana
-            port:
-              number: {{ .port }}
-    {{- end }}
-    {{- end }}
 
-  {{- with .Values.app }}
-  - http:
-      paths:
-      - path: '/'
-        pathType: Prefix
-        backend:
-          service:
-            name: {{ $appName }}-svc
-            port:
-              number: {{ .port }}
-  {{- end }}
+
+
+{{/*{{ $appName := .Release.Name }}*/}}
+{{/*apiVersion: networking.k8s.io/v1*/}}
+{{/*kind: Ingress*/}}
+{{/*metadata:*/}}
+{{/*  name: {{ $appName }}-ingress*/}}
+{{/*spec:*/}}
+{{/*  rules:*/}}
+{{/*  {{- with .Values.prometheus }}*/}}
+{{/*  {{- if .enabled }}*/}}
+{{/*  - host: '{{ .host }}'*/}}
+{{/*    http:*/}}
+{{/*      paths:*/}}
+{{/*      - path: '/'*/}}
+{{/*        pathType: Prefix*/}}
+{{/*        backend:*/}}
+{{/*          service:*/}}
+{{/*            name: {{ $appName }}-kube-prometheus-stack-prometheus*/}}
+{{/*            port:*/}}
+{{/*              number: {{ .port }}*/}}
+{{/*  {{- end }}*/}}
+{{/*  {{- end }}*/}}
+
+{{/*  {{- with .Values.grafana }}*/}}
+{{/*    {{- if .enabled }}*/}}
+{{/*  - host: '{{ .host }}'*/}}
+{{/*    http:*/}}
+{{/*      paths:*/}}
+{{/*      - path: '/'*/}}
+{{/*        pathType: Prefix*/}}
+{{/*        backend:*/}}
+{{/*          service:*/}}
+{{/*            name: {{ $appName }}-grafana*/}}
+{{/*            port:*/}}
+{{/*              number: {{ .port }}*/}}
+{{/*    {{- end }}*/}}
+{{/*    {{- end }}*/}}
+
+{{/*  {{- with .Values.app }}*/}}
+{{/*  - http:*/}}
+{{/*      paths:*/}}
+{{/*      - path: '/'*/}}
+{{/*        pathType: Prefix*/}}
+{{/*        backend:*/}}
+{{/*          service:*/}}
+{{/*            name: {{ $appName }}-svc*/}}
+{{/*            port:*/}}
+{{/*              number: {{ .port }}*/}}
+{{/*  {{- end }}*/}}

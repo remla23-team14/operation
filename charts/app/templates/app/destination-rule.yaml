@@ -1,0 +1,14 @@
+{{ $appName := .Release.Name }}
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ $appName }}-routing-rule
+spec:
+  host: {{ $appName }}-svc
+  subsets:
+  {{- range .Values.app.variants }}
+    - name: {{ .name }}
+      labels:
+        version: {{ .name }}
+  {{- end }}
+
