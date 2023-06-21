@@ -3,10 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
+        "datasource": "-- Grafana --",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -23,10 +20,7 @@
   "liveNow": false,
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -100,10 +94,7 @@
       },
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
+          "datasource": "Prometheus",
           "editorMode": "builder",
           "expr": "deployment_accuracy",
           "legendFormat": "Deployment accuracy",
@@ -115,10 +106,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -192,10 +180,7 @@
       },
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
+          "datasource": "Prometheus",
           "editorMode": "builder",
           "expr": "last_confidence_score",
           "legendFormat": "Confidence score",
@@ -207,10 +192,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -284,10 +266,7 @@
       },
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
+          "datasource": "Prometheus",
           "editorMode": "builder",
           "expr": "app_page_visits{path=~\"/|/restaurants\"}",
           "interval": "",
@@ -296,10 +275,7 @@
           "refId": "Unnamed paths"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
+          "datasource": "Prometheus",
           "editorMode": "builder",
           "expr": "app_page_visits{path!~\"/|/restaurants\"}",
           "hide": false,
@@ -312,10 +288,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -389,10 +362,7 @@
       },
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
+          "datasource": "Prometheus",
           "editorMode": "code",
           "expr": "sum(increase(app_page_visits[1m]))",
           "interval": "",
@@ -401,10 +371,7 @@
           "refId": "Total requests per min"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
+          "datasource": "Prometheus",
           "editorMode": "builder",
           "expr": "sum by (method, path, restaurantName) (increase(app_page_visits{path=~\"/|/restaurants\"}[1m]))",
           "interval": "",
@@ -413,10 +380,7 @@
           "refId": "Unnamed paths requests per min"
         },
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
+          "datasource": "Prometheus",
           "editorMode": "builder",
           "expr": "sum by (method, path, restaurantName) (increase(app_page_visits{path!~\"/|/restaurants\"}[1m]))",
           "hide": false,
