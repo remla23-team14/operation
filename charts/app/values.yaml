@@ -54,6 +54,18 @@ app:
 
       weight: 90
 
+appRateLimiter:
+  # Whether to enable the rate limiter.
+  enabled: true
+
+  # The maximum number of request in at most the fill interval.
+  maxNumberOfRequests: 10
+
+  # The number of request replenished each fill interval.
+  replenishAmount: 10
+
+  # The fill interval.
+  replenishTime: 60s
 
 prometheus:
   # Whether to enable prometheus.

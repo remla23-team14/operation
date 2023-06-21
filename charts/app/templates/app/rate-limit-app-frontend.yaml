@@ -1,0 +1,89 @@
+{{ $appName := .Release.Name }}
+{{- with .Values.appRateLimiter}}
+{{- if .enabled }}
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: {{ $appName }}-app-ratelimit
+  namespace: istio-system
+spec:
+  workloadSelector:
+    labels:
+      app: {{ $appName }}
+  configPatches:
+    - applyTo: HTTP_FILTER
+      match:
+        context: SIDECAR_INBOUND
+        listener:
+          filterChain:
+            filter:
+              name: 'envoy.filters.network.http_connection_manager'
+              subFilter:
+                name: 'envoy.filters.http.router'
+      patch:
+        operation: INSERT_BEFORE
+        value:
+          name: envoy.filters.http.local_ratelimit
+          typed_config:
+            '@type': type.googleapis.com/udpa.type.v1.TypedStruct
+            type_url: type.googleapis.com/envoy.extensions.filters.http.local_ratelimit.v3.LocalRateLimit
+            value:
+              stat_prefix: http_local_rate_limiter
+              token_bucket:
+                max_tokens: {{ .maxNumberOfRequests }}
+                tokens_per_fill: {{ .replenishAmount }}
+                fill_interval: {{ .replenishTime }}
+              {{/* To specifify the default value, which in this case mean always run the rate limiter rules */}}
+              filter_enabled:
+                runtime_key: local_rate_limit_enabled
+                default_value:
+                  numerator: 100
+                  denominator: HUNDRED
+              {{/* To specifify the default value, which in this case mean always enforce the rate limiter rules */}}
+              filter_enforced:
+                runtime_key: local_rate_limit_enforced
+                default_value:
+                  numerator: 100
+                  denominator: HUNDRED
+              {{/* To specifify what should happen if the rate limiter is triggerd.*/}}
+              response_headers_to_add:
+                - append_action: APPEND_IF_EXISTS_OR_ADD
+                  header:
+                    key: x-rate-limited
+                    value: TOO_MANY_REQUESTS
+              status:
+                code: BadRequest
+              {{/* To make the rule ip specific. */}}
+              typed_per_filter_config:
+                envoy.filters.http.ip_filter.v2.IpFilter:
+                  stat_prefix: ip_filter
+                  ip_rules:
+                    - ip_range: "0.0.0.0/0" {{/* This should incoperate all ip addresses. */}}
+                      destination_port:
+                        start: 0
+                        end: 65535
+                      action: ALLOW
+                      request_headers_to_add:
+                        - append:
+                            header:
+                              key: x-envoy-request-limit
+                              value: "{{ .maxNumberOfRequests }}"
+                      response_headers_to_add:
+                        - append:
+                            header:
+                              key: x-envoy-request-limit
+                              value: "{{ .maxNumberOfRequests }}"
+                  {{/* If the IP is not in the range (which should not be possible) perform the following: */}}
+                  default_action: DENY
+                  request_headers_to_add:
+                    - append:
+                        header:
+                          key: x-envoy-request-limit
+                          value: "0"
+                  response_headers_to_add:
+                    - append:
+                        header:
+                          key: x-envoy-request-limit
+                          value: "0"
+{{- end }}
+{{- end }}
