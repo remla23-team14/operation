@@ -8,7 +8,6 @@ modelService:
   # Whether to enable the metrics endpoint.
   metrics:
     enabled: true
-    port: 9091
 
   # The number of replicas for the model service.
   replicas: 1

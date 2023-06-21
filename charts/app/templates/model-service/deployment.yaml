@@ -15,6 +15,9 @@ spec:
     metadata:
       labels:
         app: {{ $modelServiceName }}
+      annotations:
+        prometheus.io/scrape: "{{ .metrics.enabled }}"
+        prometheus.io/port: "{{ .port }}"
     spec:
       containers:
         - name: {{ $modelServiceName }}
