@@ -1,3 +1,4 @@
+{{- if .Values.prometheus.enabled }}
 {{ $appName := .Release.Name }}
 {{ $prometheusName := print $appName "-prometheus" }}
 apiVersion: monitoring.coreos.com/v1
@@ -18,3 +19,4 @@ spec:
           annotations:
             summary: High request rate
             description: The app service has been receiving more than 15 requests per minute for the last two minutes.
+{{- end }}

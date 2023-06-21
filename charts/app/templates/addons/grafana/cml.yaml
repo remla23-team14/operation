@@ -1,3 +1,4 @@
+{{- if $.Values.grafana.enabled }}
 {{ $appName := .Release.Name }}
 {{ $grafanaName := print $appName "-grafana" }}
 {{- $files := .Files.Glob "dashboards/*.json" }}
@@ -7,13 +8,15 @@ kind: ConfigMapList
 items:
 {{- range $path, $fileContents := $files }}
 {{- $dashboardName := regexReplaceAll "(^.*/)(.*)\\.json$" $path "${2}" }}
+  {{- if or (not (hasPrefix "istio-" $dashboardName)) ($.Values.grafana.istioDefaultDashboards) }}
   - apiVersion: v1
     kind: ConfigMap
     metadata:
       name: {{ print $grafanaName "-" $dashboardName "-cm" }}
-      labels:
-        grafana_dashboard: "1"
+      namespace: istio-system
     data:
       "{{ $dashboardName }}.json": {{ $.Files.Get $path | toJson }}
+  {{- end }}
+{{- end }}
 {{- end }}
 {{- end }}

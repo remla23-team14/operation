@@ -77,7 +77,7 @@ prometheus:
   port: 9090
 
 grafana:
-  # Whether to enable grafana.
+  # Whether to enable grafana. Note: this also enables prometheus.
   enabled: true
 
   # The hostname for grafana to filter by in the ingress controller.
@@ -85,6 +85,9 @@ grafana:
 
   # The port for grafana.
   port: 3000
+
+  # Whether we should include the default Istio dashboards
+  istioDefaultDashboards: true
 
 kube-prometheus-stack:
   alertmanager:
@@ -99,3 +102,11 @@ kube-prometheus-stack:
           - receiver: 'null' # change to 'webhook' to enable webhook
             matchers:
               - severity = page
+
+jaeger:
+  # Whether to enable jaeger.
+  enabled: true
+
+kiali:
+  # Whether to enable kiali.
+  enabled: true
