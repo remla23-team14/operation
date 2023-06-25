@@ -52,7 +52,7 @@ spec:
                     key: x-rate-limited
                     value: TOO_MANY_REQUESTS
               status:
-                code: BadRequest
+                code: TooManyRequests
               {{/* To make the rule ip specific. */}}
               typed_per_filter_config:
                 envoy.filters.http.ip_filter.v2.IpFilter:

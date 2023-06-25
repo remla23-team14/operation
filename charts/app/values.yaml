@@ -41,8 +41,11 @@ app:
       # The number of replicas for the app.
       replicas: 1
 
-      weight: 10
+      # The percentage of requests that should be proxied to this variant.
+      weight: 30
 
+      # The color of the button (to differentiate from app2).
+      buttonColor: 'indigo'
 
     - name: app2
       # The image tag of the app.
@@ -51,7 +54,11 @@ app:
       # The number of replicas for the app.
       replicas: 1
 
-      weight: 90
+      # The percentage of requests that should be proxied to this variant.
+      weight: 70
+
+      # The color of the button (to differentiate from app1).
+      buttonColor: 'pink'
 
 appRateLimiter:
   # Whether to enable the rate limiter.

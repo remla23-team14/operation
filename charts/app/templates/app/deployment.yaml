@@ -41,5 +41,7 @@ spec:
               value: '{{ $app.metrics.enabled }}'
             - name: METRICS_PORT
               value: '{{ $app.metrics.port }}'
+            - name: BUTTON_COLOR
+              value: '{{ .buttonColor }}'
 ---
 {{- end }}

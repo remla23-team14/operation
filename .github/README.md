@@ -4,14 +4,29 @@ The application is a simple web application that allows users to view restaurant
 
 ## Prerequisites
 - [Docker](https://www.docker.com)
-- Docker compose / [Helm](https://helm.sh)
+- Docker compose / [Istio](https://istio.io) + [Helm](https://helm.sh)
 - A valid session to the ghcr.io docker registry:
   ```sh
   docker login ghcr.io
   ```
 
-## Usage (Helm)
-### Installation
+## Usage (Istio + Helm)
+### Istio Installation
+To use the application, you need to have Istio installed.
+We recommend installing the `istioctl` client binary using their [documentation](https://istio.io/latest/docs/setup/getting-started/#download).
+
+Once installed, enable the demo profile:
+```sh
+istioctl install --set profile=demo -y
+```
+If you prefer to use another installation, make sure the namespace of istio is `istio-system`.
+
+Then, enable automatic sidecar injection for the default namespace:
+```sh
+kubectl label namespace default istio-injection=enabled
+```
+
+### App Installation
 1. Add the repository to helm:
    ```sh
    helm repo add remla23-team14 https://remla23-team14.github.io/operation
