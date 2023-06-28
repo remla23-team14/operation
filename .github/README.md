@@ -63,9 +63,6 @@ Make sure you have the following lines in your `/etc/hosts` file, or the equival
 127.0.0.1 grafana.local
 ```
 You can then access Prometheus on [http://prometheus.local](http://prometheus.local) and Grafana on [http://grafana.local](http://grafana.local).
-Use the following credentials to login to Grafana:
-- Username: `admin`
-- Password: `prom-operator`
 
 ## Usage (docker compose)
 ### Installation
