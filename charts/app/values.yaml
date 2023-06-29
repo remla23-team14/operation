@@ -49,7 +49,7 @@ app:
       replicas: 1
 
       # The percentage of requests that should be proxied to this variant.
-      weight: 30
+      weight: 50
 
       # The color of the button (to differentiate from app2).
       buttonColor: 'indigo'
@@ -62,7 +62,7 @@ app:
       replicas: 1
 
       # The percentage of requests that should be proxied to this variant.
-      weight: 70
+      weight: 50
 
       # The color of the button (to differentiate from app1).
       buttonColor: 'pink'
