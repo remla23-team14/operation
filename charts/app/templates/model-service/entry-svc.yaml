@@ -1,0 +1,24 @@
+{{ $appName := .Release.Name }}
+{{- with .Values.modelService }}
+{{- if .public_access.enabled }}
+{{ $modelServiceName := print $appName "-model-service" }}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ $modelServiceName }}-entry-service
+spec:
+  gateways:
+    - {{ $appName }}-gateway
+  hosts:
+    - '{{ .public_access.host }}'
+  http:
+    - match:
+        - uri:
+            prefix: "/"
+      route:
+        - destination:
+            host: {{ $modelServiceName }}-svc
+            port:
+              number: {{ .port }}
+{{- end }}
+{{- end }}

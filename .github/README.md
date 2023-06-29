@@ -55,14 +55,17 @@ minikube tunnel
  ```
 This will expose the ingress on [http://localhost:80](http:localhost:80).
 
-### Access Prometheus & Grafana
-To access Prometheus and Grafana, by default, the domains `prometheus.local` and `grafana.local` are used.
+### Access Prometheus, Grafana and Model-service
+To access Prometheus, Grafana and model-service by default, the domains `prometheus.local` and `grafana.local` are used.
 Make sure you have the following lines in your `/etc/hosts` file, or the equivalent for your OS:
 ```sh
 127.0.0.1 prometheus.local
 127.0.0.1 grafana.local
+127.0.0.1 model-service.local
 ```
-You can then access Prometheus on [http://prometheus.local](http://prometheus.local) and Grafana on [http://grafana.local](http://grafana.local).
+You can then access Prometheus on [http://prometheus.local](http://prometheus.local),
+Grafana on [http://grafana.local](http://grafana.local) and 
+the Model-service docs on [http://prometheus.local/apidocs](http://model-service.local).
 
 ## Usage (docker compose)
 ### Installation

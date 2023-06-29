@@ -2,6 +2,13 @@ modelService:
   # The image tag of the model service.
   version: latest
 
+  public_access:
+    # Whether to enable public access.
+    enabled: true
+
+    # The host name to get public access.
+    host: 'model-service.local'
+
   # The port for the model service.
   port: 8080
 
