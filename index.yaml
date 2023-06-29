@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   app:
   - apiVersion: v2
+    created: "2023-06-29T19:58:48.749455108Z"
+    digest: 3c2e1570a641450541e20c239c28ba6adfed9a581b20a2b62e3163abea806c8a
+    name: app
+    type: application
+    urls:
+    - https://github.com/remla23-team14/operation/releases/download/app-0.0.13/app-0.0.13.tgz
+    version: 0.0.13
+  - apiVersion: v2
     created: "2023-06-29T18:19:25.14897278Z"
     digest: d7509cd8a1214052493afd234212ae6eb9cd6cf52ba06ebb91a68413e03ab1e1
     name: app
@@ -113,4 +121,4 @@ entries:
     urls:
     - https://github.com/remla23-team14/operation/releases/download/app-0.0.1/app-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-29T18:19:25.149027383Z"
+generated: "2023-06-29T19:58:48.749504208Z"
