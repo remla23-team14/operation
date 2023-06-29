@@ -80,8 +80,40 @@ services:
 #    volumes:
 #      - ./model-training/c1_BoW_Sentiment_Model.pkl:/root/model-training/c1_BoW_Sentiment_Model.pkl
 #      - ./model-training/c2_Classifier_Sentiment_Model:/root/model-training/c2_Classifier_Sentiment_Model
+#      - ./model-training/pre_processed_dataset.joblib:/root/model-training/pre_processed_dataset.joblib
+#      - ./model-training/model_metrics.json:/root/model-training/model_metrics.json
 ```
 Make sure you have the model files in the `model-training` folder (or change it).
+**Note: the target names must stay the same!**
+See [this other README](https://github.com/remla23-team14/model-service/blob/main/model-training/README.md), 
+on how you can download models using DVC.
+
+Next to mounting your own files you can also automatically download different DVC models. 
+You can do this by uncommenting and changing the following lines in the `docker-compose.yml` file:
+
+```yml
+    environment:
+      MODEL_SERVICE_URL: http://model-service:8080
+#      DVC_REPO: "https://github.com/remla23-team14/model-training.git"
+#      DVC_REV: "HEAD"
+#      DVC_MODEL_PATH: "models/c2_Classifier_Sentiment_Model"
+#      DVC_PREPROCESSOR_PATH: "data/processed/c1_BoW_Sentiment_Model.joblib"
+#      DVC_CORPUS_PATH: "data/processed/pre_processed_dataset.joblib"
+#      DVC_METRICS_PATH: "data/output/model_metrics.json"
+#      USE_DVC: "false"
+```
+
+These variables do the following:
+* `MODEL_SERVICE_URL` - The url and port on which the model service run.
+* `DVC_REPO` - The DVC repo the files should be pulled from (use the http version).
+* `DVC_REV` - When using a git repo. This refers to the `Git revision` from where it should be pulled.
+* `DVC_MODEL_PATH` - The path to the model file in the DVC repo.
+* `DVC_PREPROCESSOR_PATH` - The path to the preprocessor file in the DVC repo.
+* `DVC_CORPUS_PATH` - The path to the corpus file in the DVC repo.
+* `DVC_METRICS_PATH` - The path to the metrics file in the DVC repo.
+* `USE_DVC` - Whether to use DVC. If false it will try to use local files if they can be found, 
+  otherwise it will still result to dvc
+
 
 ### Access
 The application will be available at [http://localhost:80](http:localhost:80).
