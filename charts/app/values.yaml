@@ -4,7 +4,7 @@ modelService:
 
   public_access:
     # Whether to enable public access.
-    enabled: true
+    enabled: false
 
     # The host name to get public access.
     host: 'model-service.local'
